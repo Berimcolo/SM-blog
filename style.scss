@@ -1,45 +1,57 @@
-/*******************/
-/* SIDEBAR STYLES */
-/*******************/
-
+/***********/
+/* SIDEBAR */
+/***********/
 .sidebar {
   width: 250px;
-  background: $darkGray;
-  color: $white;
+  background: black;
+  color: white;
   position: fixed;
   height: 100%;
   padding: 20px;
   left: 0;
   top: 0;
   overflow-y: auto;
-  
-  h2 {
-    color: $blue;
-    font-size: 22px;
-    margin-bottom: 15px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    
-    li {
-      margin-bottom: 10px;
-      
-      a {
-        color: $white;
-        text-decoration: none;
-        font-size: 18px;
-        &:hover {
-          color: $blue;
-        }
-      }
-    }
-  }
 }
 
-// Push main content to the right
+.sidebar h2 {
+  color: blue;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+
+/* Style menu items */
+.sidebar .menu-item {
+  list-style: none;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* Button for expanding */
+.sidebar .toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.sidebar .submenu {
+  display: none;
+  padding-left: 15px;
+}
+
+.sidebar .submenu li {
+  margin: 5px 0;
+}
+
+/* Shift main content to the right */
 #main {
-  margin-left: 270px; // Adjust to make space for sidebar
+  margin-left: 270px;
   padding: 20px;
 }
+
