@@ -1,82 +1,98 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>{% if page.title %}{{ page.title }} – {% endif %}{{ site.name }} – {{ site.description }}</title>
+<body>
+  <aside class="sidebar">
+    <h2>Content</h2>
+    <ul>
+      <li class="menu-item">
+        <button class="toggle-btn">+</button>
+        <span class="menu-title">Elasticity</span>
+        <ul class="submenu">
+          <li><a href="#" class="sub-link" data-content="sub1">Sub-section 1</a></li>
+          <li><a href="#" class="sub-link" data-content="sub2">Sub-section 2</a></li>
+        </ul>
+      </li>
+    </ul>
 
-    {% include meta.html %}
+    <h2>Author</h2>
+    <p>Uri Peker</p>
+  </aside>
 
-    <!--[if lt IE 9]>
-      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+  <div class="wrapper-masthead">
+    <div class="container">
+      <header class="masthead clearfix">
+        <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
 
-    <link rel="stylesheet" type="text/css" href="{{ site.baseurl }}/style.css" />
-    <link rel="alternate" type="application/rss+xml" title="{{ site.name }} - {{ site.description }}" href="{{ site.baseurl }}/feed.xml" />
-  </head>
+        <div class="site-info">
+          <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
+          <p class="site-description">{{ site.description }}</p>
+        </div>
 
-  <body>
-    <aside class="sidebar">
-      <h2 style="color: blue;">Content</h2>
-      <ul>
-        <li class="menu-item">
-          <button class="toggle-btn">+</button>
-          <span>Elasticity</span>
-          <ul class="submenu" style="display: none;">
-            <li><a href="#">Sub-section 1</a></li>
-            <li><a href="#">Sub-section 2</a></li>
-          </ul>
-        </li>
-      </ul>
-    </aside>
-    
-    <div class="wrapper-masthead">
-      <div class="container">
-        <header class="masthead clearfix">
-          <a href="{{ site.baseurl }}/" class="site-avatar"><img src="{{ site.avatar }}" /></a>
-
-          <div class="site-info">
-            <h1 class="site-name"><a href="{{ site.baseurl }}/">{{ site.name }}</a></h1>
-            <p class="site-description">{{ site.description }}</p>
-          </div>
-
-          <nav>
-            <a href="{{ site.baseurl }}/">Blog</a>
-            <a href="{{ site.baseurl }}/about">About</a>
-          </nav>
-        </header>
-      </div>
+        <nav>
+          <a href="{{ site.baseurl }}/">Blog</a>
+          <a href="{{ site.baseurl }}/about">About</a>
+        </nav>
+      </header>
     </div>
+  </div>
 
-    <div id="main" role="main" class="container">
-      {{ content }}
+  <!-- Main Content Area -->
+  <div id="main" role="main" class="container">
+    <div id="dynamic-content">
+      <h2>Welcome</h2>
+      <p>This is the default welcome message. Click a subsection to change content.</p>
     </div>
+  </div>
 
-    <div class="wrapper-footer">
-      <div class="container">
-        <footer class="footer">
-          {% include svg-icons.html %}
-        </footer>
-      </div>
+  <div class="wrapper-footer">
+    <div class="container">
+      <footer class="footer">
+        {% include svg-icons.html %}
+      </footer>
     </div>
+  </div>
 
-    {% include analytics.html %}
+  {% include analytics.html %}
 
-    <!-- JavaScript for Sidebar Toggle -->
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".toggle-btn").forEach(button => {
-          button.addEventListener("click", function() {
-            let submenu = this.nextElementSibling.nextElementSibling;
-            if (submenu.style.display === "block") {
-              submenu.style.display = "none";
-              this.textContent = "+";
-            } else {
-              submenu.style.display = "block";
-              this.textContent = "-";
-            }
-          });
+  <script>
+    // JavaScript for expanding subsections and changing content
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtns = document.querySelectorAll(".toggle-btn");
+      const menuTitles = document.querySelectorAll(".menu-title");
+      const submenuLinks = document.querySelectorAll(".sub-link");
+      const dynamicContent = document.getElementById("dynamic-content");
+
+      toggleBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+          const submenu = this.nextElementSibling.nextElementSibling;
+          submenu.classList.toggle("show");
+          this.textContent = submenu.classList.contains("show") ? "-" : "+";
         });
       });
-    </script>
-  </body>
-</html>
+
+      menuTitles.forEach(title => {
+        title.addEventListener("click", function () {
+          const submenu = this.nextElementSibling;
+          submenu.classList.toggle("show");
+          this.previousElementSibling.textContent = submenu.classList.contains("show") ? "-" : "+";
+        });
+      });
+
+      submenuLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+          e.preventDefault();
+          const contentId = this.getAttribute("data-content");
+          
+          let contentHTML = "";
+          if (contentId === "sub1") {
+            contentHTML = "<h2>Sub-section 1</h2><p>This is the content for Sub-section 1.</p>";
+          } else if (contentId === "sub2") {
+            contentHTML = "<h2>Sub-section 2</h2><p>This is the content for Sub-section 2.</p>";
+          }
+
+          dynamicContent.innerHTML = contentHTML;
+        });
+      });
+    });
+  </script>
+</body>
+
 
