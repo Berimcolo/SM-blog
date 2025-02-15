@@ -15,26 +15,13 @@ avatar: https://raw.githubusercontent.com/barryclark/jekyll-now/master/images/je
 # Flags below are optional
 #
 
-# Theme:
-theme: just-the-docs
-
-just_the_docs:
-  collections:
-    navigation:
-      - title: "Inicio"
-        url: /
-      - title: "Sobre mí"
-        url: /about/
-      - title: "Blog"
-        url: /blog/
-
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
   email:
   facebook:
   flickr:
-  github: barryclark/jekyll-now
+  github:
   instagram:
   linkedin:
   pinterest:
